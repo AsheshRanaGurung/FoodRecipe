@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 
 const App = () => {
   const APP_ID = "e119e0c8";
