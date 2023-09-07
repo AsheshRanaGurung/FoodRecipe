@@ -29,19 +29,19 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <form className="search-form" onSubmit={getSearch}>
+    <div>
+      <form  onSubmit={getSearch}>
         <input
-          className="search-bar"
+      
           type="text"
           value={search}
           onChange={updateSearch}
         />
-        <button className="search-button" type="submit">
+        <button type="submit">
           Search
         </button>
       </form>
-      <div className="recipes">
+      <div >
         {recipes.map((recipe) => (
           <Recipe
             key={recipe.recipe.label}
