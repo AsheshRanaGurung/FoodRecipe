@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RecipeCard from "./components/RecipeCard";
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react";
+import User from "./components/User";
+import Dashboard from "./components/Dashboard";
+import { useRoutes } from "react-router-dom";
+
+
 
 const App = () => {
-    const [recipe, setRecipe] = useState("chicken")
+
+    const [food, setFood] = useState("")
     const [recipeList, setRecipeList] = useState([])
     const baseURL = "https://api.edamam.com";
 
@@ -13,15 +20,32 @@ const App = () => {
     const APP_ID = "e119e0c8";
     const APP_KEY = "f5bbc911201ddaa8b732d93b5c886884";
 
-    useEffect(() => {
-
-        axios.get(`${baseURL}/search?q=${recipe}&app_id=${APP_ID}&app_key=${APP_KEY}`).then((response) => {
+    const hitAPI = () => {
+        axios.get(`${baseURL}/search?q=${food}&app_id=${APP_ID}&app_key=${APP_KEY}`).then((response) => {
+            console.log(response)
             setRecipeList(response.data.hits)
         }).catch(() => { })
-    }, [])
+    }
+    const routes = [
+        {
+            path: "/",
+            element: <Dashboard />
+        },
+        {
+            path: "/user",
+            element: <User />
+        }, {
+            path: "/recipeList",
+            element: <RecipeCard recipeList={recipeList} food={food} setFood={setFood} triggerAPI={hitAPI} />
+        }
+    ]
+    const renderedComponent = useRoutes(routes)
 
     return (
-        <RecipeCard recipeList={recipeList} />
+        <>
+
+            {renderedComponent}
+        </>
     );
 };
 
