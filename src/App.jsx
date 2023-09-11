@@ -2,17 +2,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RecipeCard from "./components/RecipeCard";
 import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement } from "@chakra-ui/react";
-import User from "./components/User";
 import Dashboard from "./components/Dashboard";
 import { useRoutes } from "react-router-dom";
+import Posts from "./components/Posts";
 
 
+const baseURL = "https://api.edamam.com";
+export const basePostURL = "https://jsonplaceholder.typicode.com/posts"
 
 const App = () => {
 
     const [food, setFood] = useState("")
     const [recipeList, setRecipeList] = useState([])
-    const baseURL = "https://api.edamam.com";
 
     // const APP_ID = import.meta.env.VITE_APP_ID;
     // const APP_KEY = import.meta.env.VITE_APP_KEY;
@@ -32,8 +33,8 @@ const App = () => {
             element: <Dashboard />
         },
         {
-            path: "/user",
-            element: <User />
+            path: "/post",
+            element: <Posts />
         }, {
             path: "/recipeList",
             element: <RecipeCard recipeList={recipeList} food={food} setFood={setFood} triggerAPI={hitAPI} />
