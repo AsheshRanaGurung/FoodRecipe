@@ -9,12 +9,22 @@ const Posts
     = () => {
         // basePostURL
         const [users, setUsers] = useState([])
+        const [deleteId, setDeleteId] = useState()
         const { isOpen, onOpen, onClose } = useDisclosure()
         useEffect(() => {
-            axios.get(basePostURL).then(
+            axios.get(`${basePostURL}/posts`).then(
                 (res) => setUsers(res.data)
             ).catch((err) => console.log(err, "---->err"))
         }, [])
+        const deleteUser = () => {
+            axios.delete(`${basePostURL}/posts/${deleteId}`).then(
+                (res) => {
+                    console.log(res)
+                    onClose()
+                }
+            ).catch((err) => console.log(err))
+
+        }
         return (
             <div>
                 <Grid templateColumns="repeat(3, 1fr)" gap={6}>
@@ -29,8 +39,11 @@ const Posts
                                     <Text>{user.body}</Text>
                                 </VStack>
                                 <Flex sx={{ justifyContent: "flex-end", width: "100%", paddingRight: "8px", columnGap: "8px" }}>
-                                    <AiOutlineEdit />
-                                    <RiDeleteBin6Fill onClick={onOpen} />
+                                    <AiOutlineEdit onClick={onOpen} />
+                                    <RiDeleteBin6Fill onClick={() => {
+                                        setDeleteId(user.id)
+                                        onOpen()
+                                    }} />
                                 </Flex>
                                 {/* <Divider borderColor={"black"} /> */}
                             </div>
@@ -44,14 +57,14 @@ const Posts
                         <ModalHeader>Are you sure you want to delete this user?</ModalHeader>
                         <ModalCloseButton />
 
-                        <ModalBody>
-                            asdajhsdja
-                        </ModalBody>
+
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}>
                                 Close
                             </Button>
-                            <Button variant='ghost'>Secondary Action</Button>
+                            <Button variant='ghost' onClick={() => {
+                                deleteUser()
+                            }}>Delete</Button>
                         </ModalFooter>
                     </ModalContent>
                 </Modal>

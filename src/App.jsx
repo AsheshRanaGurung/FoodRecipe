@@ -5,10 +5,11 @@ import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement } f
 import Dashboard from "./components/Dashboard";
 import { useRoutes } from "react-router-dom";
 import Posts from "./components/Posts";
+import LoginForm from "./components/LoginForm";
 
 
 const baseURL = "https://api.edamam.com";
-export const basePostURL = "https://jsonplaceholder.typicode.com/posts"
+export const basePostURL = "https://jsonplaceholder.typicode.com"
 
 const App = () => {
 
@@ -27,7 +28,7 @@ const App = () => {
             setRecipeList(response.data.hits)
         }).catch(() => { })
     }
-    const routes = [
+    const protectedRoutes = [
         {
             path: "/",
             element: <Dashboard />
@@ -40,7 +41,11 @@ const App = () => {
             element: <RecipeCard recipeList={recipeList} food={food} setFood={setFood} triggerAPI={hitAPI} />
         }
     ]
-    const renderedComponent = useRoutes(routes)
+    const openRoutes = [{
+        path: "/login",
+        component: <LoginForm />
+    }]
+    const renderedComponent = useRoutes(protectedRoutes)
 
     return (
         <>
