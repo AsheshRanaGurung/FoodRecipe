@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import { useRoutes } from "react-router-dom";
 import Posts from "./components/Posts";
 import LoginForm from "./components/LoginForm";
+import ApiHit from "./components/ApiHit";
 
 
 const baseURL = "https://api.edamam.com";
@@ -32,6 +33,10 @@ const App = () => {
         {
             path: "/",
             element: <Dashboard />
+        },
+        {
+            path: "/apiHit",
+            element: <ApiHit />
         },
         {
             path: "/post",

@@ -10,6 +10,7 @@ const Dashboard = () => {
             <Flex gap={4}>
                 <Button onClick={() => navigate("/post")}>Navigate to posts</Button>
                 <Button onClick={() => navigate("/recipeList")}>Navigate to recipeList</Button>
+                <Button onClick={() => navigate("/apiHit")}>Cleanup func</Button>
             </Flex>
         </>
     )
